@@ -32,7 +32,11 @@ public class Main {
 
 	System.out.println(Builder.build(Properties.class)
 				  .with(p -> p.put("one", 1))
+				  .If(() -> false)
 				  .with(p -> p.put("two", 2))
+				  .with(p -> p.put("three", 3))
+				  .endIf()
+				  .with(p -> p.put("four", 4))
 				  .get()
 
 	);

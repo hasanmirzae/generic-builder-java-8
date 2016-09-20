@@ -1,5 +1,6 @@
 package edu.sample.utils;
 
+import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
 
 /**
@@ -10,7 +11,8 @@ import java.util.function.Consumer;
  */
 public class Builder<T> {
 
-    T instance;
+    private T instance;
+    private boolean ifCond = true;
     public Builder(Class<T> clazz){
 	try {
 	    instance = clazz.newInstance();
@@ -20,7 +22,8 @@ public class Builder<T> {
     }
     
     public Builder<T> with(Consumer<T> setter){
-	setter.accept(instance);
+	if(ifCond)
+	    setter.accept(instance);
 	return this;
     }
     
@@ -30,6 +33,16 @@ public class Builder<T> {
     
     public static <T> Builder<T> build(Class<T> clazz) {
 	return new Builder<>(clazz);
+    }
+    
+    public Builder<T> If(BooleanSupplier condition){
+	this.ifCond = condition.getAsBoolean();
+	return this;
+    }
+    
+    public Builder<T> endIf(){
+	this.ifCond = true;
+	return this;
     }
     
 
