@@ -2,6 +2,7 @@ package edu.sample;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
 
 import edu.sample.utils.Builder;
 
@@ -26,6 +27,15 @@ public class Main {
 				  .with(s -> s.setName("Sample object"))
 				  .with(s -> s.setList(list))
 				  .get());
+
+	System.out.println("\n\nCreate new instance of java standard properties:");
+
+	System.out.println(Builder.build(Properties.class)
+				  .with(p -> p.put("one", 1))
+				  .with(p -> p.put("two", 2))
+				  .get()
+
+	);
 
     }
 
